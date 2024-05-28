@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -9,7 +10,6 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb2d;
     private Animator anim;
 
-    [SerializeField] private Camera cam;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +22,6 @@ public class Player : MonoBehaviour
     void Update()
     {
         Movement();
-
     }
 
     void Movement()
@@ -47,4 +46,17 @@ public class Player : MonoBehaviour
         //anim.SetBool("Idle", true);
         
     }
+
+    //private void OnBecameInvisible()
+    //{
+    //    if(rb2d.transform.position.y > 0)
+    //    {
+    //        Debug.Log("up");
+           
+
+
+    //    }
+    //}
+
+
 }
