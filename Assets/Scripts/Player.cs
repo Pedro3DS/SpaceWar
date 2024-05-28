@@ -5,9 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private float shootCadense;
     private Rigidbody2D rb2d;
     private Animator anim;
 
+    [SerializeField] private Camera cam;
 
     // Start is called before the first frame update
     void Start()
@@ -20,21 +22,29 @@ public class Player : MonoBehaviour
     void Update()
     {
         Movement();
+
     }
 
     void Movement()
     {
         float verticalMovement = Input.GetAxis("Vertical");
+        float horizontalMovement = Input.GetAxis("Horizontal");
         rb2d.velocity = new Vector2(rb2d.velocity.x, verticalMovement * speed);
-        if (verticalMovement != 0)
+        rb2d.velocity = new Vector2(horizontalMovement * speed, rb2d.velocity.y);
+        if (verticalMovement > 0)
         {
             anim.SetBool("Up", true);
         }
-        else
+        else if (verticalMovement < 0)
         {
             anim.SetBool("Down", true);
         }
-        anim.SetBool("Down", false);
-        anim.SetBool("Up", false);
+        else
+        {
+            anim.SetBool("Up", false);
+            anim.SetBool("Down", false);
+        }
+        //anim.SetBool("Idle", true);
+        
     }
 }
