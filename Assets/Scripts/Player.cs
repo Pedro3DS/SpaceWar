@@ -10,12 +10,17 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb2d;
     private Animator anim;
 
+    private bool alive = true;
+
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject explosion;
 
     // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
@@ -43,20 +48,20 @@ public class Player : MonoBehaviour
             anim.SetBool("Up", false);
             anim.SetBool("Down", false);
         }
-        //anim.SetBool("Idle", true);
         
     }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Asteroid"))
+        {
+            anim.SetBool("Die", true);
+        }
+    }
 
-    //private void OnBecameInvisible()
-    //{
-    //    if(rb2d.transform.position.y > 0)
-    //    {
-    //        Debug.Log("up");
-           
-
-
-    //    }
-    //}
-
+    private void Die()
+    {
+        alive = false;
+        Destroy(gameObject);
+    }
 
 }
