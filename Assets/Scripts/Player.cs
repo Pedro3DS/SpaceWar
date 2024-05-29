@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,13 +8,15 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float shootCadense;
+    [SerializeField] private float nextShoot;
     private Rigidbody2D rb2d;
     private Animator anim;
-
-    private bool alive = true;
+    public double counter = 0000000000000000000;
 
     [SerializeField] private GameObject bullet;
-    [SerializeField] private GameObject explosion;
+
+    [SerializeField] private TMP_Text countText;
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +30,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         Movement();
+        Shooting();
+        countText.text = $"{counter}";
     }
 
     void Movement()
@@ -48,7 +53,7 @@ public class Player : MonoBehaviour
             anim.SetBool("Up", false);
             anim.SetBool("Down", false);
         }
-        
+
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -58,9 +63,34 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void Shooting()
+    {
+        if (Input.GetMouseButtonDown(0) && Time.time >= nextShoot)
+        {
+
+            nextShoot = Time.time + shootCadense;
+
+            Vector2 direction = Vector2.right;
+            if (gameObject.GetComponent<SpriteRenderer>().flipX)
+            {
+                direction = Vector2.left;
+            }
+
+            Vector3 spawnPosition = transform.position + new Vector3(direction.x, direction.y, 0f);
+
+
+            GameObject newBullet = Instantiate(bullet, spawnPosition, Quaternion.identity);
+
+
+            Rigidbody2D bulletRB = newBullet.GetComponent<Rigidbody2D>();
+            bulletRB.velocity = direction * 10;
+            Destroy(bulletRB,2);
+        }
+    }
+
     private void Die()
     {
-        alive = false;
+        Debug.Log("Moreu");
         Destroy(gameObject);
     }
 
