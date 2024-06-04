@@ -9,7 +9,17 @@ public class Bounds : MonoBehaviour
     private float objectWidth;
     private float objectHeight;
 
-    void Start()
+    //void Start()
+    //{
+    //    // Get the main camera's screen bounds
+    //    screenBounds = UnityEngine.Camera.main.ScreenToWorldPoint(new Vector3(UnityEngine.Screen.width, UnityEngine.Screen.height, UnityEngine.Camera.main.transform.position.z));
+
+    //    // Get the object's width and height in world units
+    //    objectWidth = transform.GetComponent<SpriteRenderer>().bounds.size.x / 2;
+    //    objectHeight = transform.GetComponent<SpriteRenderer>().bounds.size.y / 2;
+    //}
+
+    private void Update()
     {
         // Get the main camera's screen bounds
         screenBounds = UnityEngine.Camera.main.ScreenToWorldPoint(new Vector3(UnityEngine.Screen.width, UnityEngine.Screen.height, UnityEngine.Camera.main.transform.position.z));

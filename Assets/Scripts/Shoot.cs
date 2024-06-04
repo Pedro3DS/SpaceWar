@@ -7,7 +7,7 @@ public class Shoot : MonoBehaviour
 {
     [SerializeField] private int damage;
 
-    [SerializeField] private TMP_Text countText;
+
 
     private Animator animator;
     private Rigidbody2D rb2d;
@@ -31,7 +31,7 @@ public class Shoot : MonoBehaviour
             Destroy(other.gameObject);
             rb2d.velocity = Vector3.zero;
             animator.SetBool("Destroy", true);
-            Debug.Log(double.Parse(countText.text)+1);
+           
         }
     }
 
